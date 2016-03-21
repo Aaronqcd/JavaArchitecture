@@ -29,18 +29,19 @@ public class ItemServiceTests extends AbstractTests {
 
         Item item = new Item();
         item.setDescription("test3");
-        //Integer id = 2;
+        Integer id = 1;
 
         //成功创建
         mockMvc.perform(post("/items")
                 .content(IntegrationTestUtil.convertObjectToJsonBytes(item))
                 .contentType(IntegrationTestUtil.APPLICATION_JSON_UTF8)).andExpect(status().isOk());
+        mockMvc.perform(get("/items")
+                .contentType(IntegrationTestUtil.APPLICATION_JSON_UTF8)).andExpect(status().isOk());
+        mockMvc.perform(delete("/items/{id}", id)
+                .contentType(IntegrationTestUtil.APPLICATION_JSON_UTF8)).andExpect(status().isNoContent());
 
-        /*mockMvc.perform(delete("/items/{id}", id)
-                .contentType(IntegrationTestUtil.APPLICATION_JSON_UTF8)).andExpect(status().isOk());*/
-
-        /*mockMvc.perform(get("/items")
-                .contentType(IntegrationTestUtil.APPLICATION_JSON_UTF8)).andExpect(status().isOk());*/
+        mockMvc.perform(get("/items")
+                .contentType(IntegrationTestUtil.APPLICATION_JSON_UTF8)).andExpect(status().isOk());
     }
 
     @Test
